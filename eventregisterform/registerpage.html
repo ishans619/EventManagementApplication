@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="info">
+        <div class="form_box_Register">
+            <h2>REGISTER</h2>
+            <form action="#" onsubmit="registerUser(event)" method="post">
+                 <div class="input_box">
+                    <span class="icon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                    <input type="text" name="uname" required>
+                    <label>Username</label>
+                </div>
+                <div class="input_box">
+                    <span class="icon1"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                    <input type="email" name="emails" required>
+                    <label>Email</label>
+                </div>
+                <button type="submit" name="ok" class="btn" onclick="openPopup()">Register Now</button>
+            </form>
+        </div>   
+        <div class="popup" id="popup">
+            <h2 style="color:#c31432; font-family:Young-serif;">Congratulation! Registered Successfully</h2>
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript">
+let popup = document.getElementById("popup");
+
+function openPopup(){
+    popup.classList.add("open-popup");
+}
+function closePopup(){
+    popup.classList.remove("open-popup");
+}
+
+async function registerUser(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            const userData = {
+                name: name,
+                email: email
+            };
+
+            try {
+                const response = await fetch('http://localhost:8080/api/person/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+
+                if (response.ok) {
+                    alert('User registered successfully!');
+                } else {
+                    alert('Error registering user.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Network error occurred.');
+            }
+        }
+
+
+</script>
+</script>
+</html>
